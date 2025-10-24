@@ -1,30 +1,18 @@
+import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation/validation-rules";
-import { useState } from "react";
 
 const loginSchema = {
-  email: [
-    validationRules.required,
-    validationRules.email,
-  ],
-  password: [
-    validationRules.required,
-    validationRules.min(6).max(10)
-  ],
+  email: [validationRules.required, validationRules.email],
+  password: [validationRules.required, validationRules.min(10)],
 };
 
 export default function Login() {
-  const [formData, setFormData] = useState({
+  const { formData, errors, getFieldProps } = useForm(loginSchema, {
     email: "",
     password: "",
-    errors: {
-      email: "",
-      password: "",
-    },
   });
 
-  const onChange = ({ target: { name, value } }) => {
-    setFormData({ ...formData, [name]: value });
-  };
+  console.log(formData, errors);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -37,24 +25,22 @@ export default function Login() {
           <input
             type="text"
             name="email"
-            value={formData.email}
-            onChange={onChange}
             placeholder="johndoe@gmail.com"
             autoComplete="email"
+            {...getFieldProps("email")}
           />
-          <div className="form-error" data-form-error-type="email"></div>
+          <div className="form-error"></div>
         </div>
 
         <div className="form-group">
           <input
             type="password"
             name="password"
-            value={formData.password}
-            onChange={onChange}
             autoComplete="new-password"
             placeholder="password"
+            {...getFieldProps("password")}
           />
-          <div className="form-error" data-form-error-type="password"></div>
+          <div className="form-error"></div>
         </div>
 
         <button type="submit">Login</button>
