@@ -3,7 +3,11 @@ import { validationRules } from "@/utils/validation/validation-rules";
 
 const loginSchema = {
   email: [validationRules.required, validationRules.email],
-  password: [validationRules.required, validationRules.min(10)],
+  password: [
+    validationRules.required,
+    validationRules.min(6),
+    validationRules.max(30),
+  ],
 };
 
 export default function Login() {
@@ -16,6 +20,7 @@ export default function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(formData, errors);
   };
 
   return (
