@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { AuthService } from "@/services/auth";
 
-export default function useAuth() {
+export function useAuth() {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState("")
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,22 +20,25 @@ export default function useAuth() {
    return await AuthService.signup(userCredentials)
   };
 
-  const login = (email, password) => {
-    console.log(email, password);
+  const login = async (userCredentials) => {
+    return await AuthService.login(userCredentials)
   };
 
   const logout = () => {
     AuthService.logout();
     setUser(null);
+    setError("")
   };
 
   return {
     user,
     isAuthenticated: !!user,
     loading,
+    error,
 
     signup,
     login,
     logout,
+    setError,
   };
 }

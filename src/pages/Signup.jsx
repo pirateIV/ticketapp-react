@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
 import { FormField } from "@/components/FormField";
@@ -40,6 +40,7 @@ export default function Signup() {
 
     if (validation.isValid) {
       const { success, message } = await signup(formData);
+
       if (success) {
         navigate("/auth/login");
       } else {

@@ -4,18 +4,20 @@ export class AuthService {
   static sessionKey = "ticketapp_session";
   static usersKey = "ticketapp_users"
 
-  static async signup(userData) {
+  static async signup(userCredentials) {
     // Check if user already exists
     const existingUsers = this.getUsers();
-    const existingUser = existingUsers.find((user) => user.email === userData.email || user.username === userData.username);
+    const existingUser = existingUsers.find((user) => user.email === userCredentials.email || user.username === userCredentials.username);
 
+    // Returned response if user already existed
     if(existingUser) {
-      return { success: false, message: "User already exists" }
+      return { 
+        message: "User already exists" ,
+        success: false, 
+      }
     }
 
-    const {username, email, password} = userData;
-
-    console.log(existingUsers, existingUser)
+    const { username, email, password } = userCredentials;
 
     // Create new user
     const newUser = {
@@ -26,20 +28,41 @@ export class AuthService {
       createdAt: new Date().toISOString()
     }
 
-    console.log(newUser)
-
     // Save user to localStorage
     existingUsers.push(newUser);
     localStorage.setItem(this.usersKey, JSON.stringify(existingUsers));
 
-    return { success: true  }
+    // Returned response if user is created successfully
+    return { 
+      message: "User created successfully",
+      success: true, 
+    }
   }
 
-  static login(email, password) {
-    if (email && password) {
-      return true;
+  static async login(userCredentials) {
+    const users = this.getUsers();
+
+    const { email, password } = userCredentials; 
+    const user = users.find((u) => u.email === email);
+    
+    if(!user) {
+      return { 
+        message: "User not found", 
+        success: false, 
+      }
     }
-    return false;
+
+    const hashedPassword = await hashPassword(password)
+    const isPasswordMatch = user.password === hashedPassword;
+
+    if(!isPasswordMatch) {
+      return { 
+        message: "Invalid credentials",
+        success: false,
+      }
+    }
+
+    return { user, success: true }
   }
 
   static generateToken(user) {
