@@ -4,7 +4,7 @@ export class AuthService {
   static sessionKey = "ticketapp_session";
   static usersKey = "ticketapp_users"
 
-  static signup(userData) {
+  static async signup(userData) {
     // Check if user already exists
     const existingUsers = this.getUsers();
     const existingUser = existingUsers.find((user) => user.email === userData.email || user.username === userData.username);
@@ -15,14 +15,18 @@ export class AuthService {
 
     const {username, email, password} = userData;
 
+    console.log(existingUsers, existingUser)
+
     // Create new user
     const newUser = {
       id: generateId(),
       username,
       email,
-      password: hashPassword(password),
+      password: await hashPassword(password),
       createdAt: new Date().toISOString()
     }
+
+    console.log(newUser)
 
     // Save user to localStorage
     existingUsers.push(newUser);

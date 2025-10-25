@@ -15,8 +15,8 @@ export default function useAuth() {
     setLoading(false);
   }, []);
 
-  const signup = (userCredentials) => {
-   return AuthService.signup(userCredentials)
+  const signup = async (userCredentials) => {
+   return await AuthService.signup(userCredentials)
   };
 
   const login = (email, password) => {

@@ -39,7 +39,7 @@ export default function Signup() {
     const validation = validateForm();
 
     if (validation.isValid) {
-      const { success, message } = signup(formData);
+      const { success, message } = await signup(formData);
       if (success) {
         navigate("/auth/login");
       } else {
