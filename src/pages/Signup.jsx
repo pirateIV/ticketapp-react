@@ -1,7 +1,7 @@
 import useAuth from "@/hooks/useAuth";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation/validation-rules";
-import { useState } from "react";
+import { FormField } from "@/components/FormField";
 
 // prettier-ignore
 const signupSchema = {
@@ -22,8 +22,8 @@ const signupSchema = {
 };
 
 export default function Signup() {
-  const {} = useAuth();
-  const { getFieldProps, validateForm } = useForm(signupSchema, {
+  const { signup } = useAuth();
+  const { formData, getFieldProps, validateForm } = useForm(signupSchema, {
     username: "",
     email: "",
     password: "",
@@ -36,52 +36,51 @@ export default function Signup() {
 
     if (validation.isValid) {
       console.log("form submitted...");
+      signup(formData);
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input
-            type="text"
-            name="username"
-            placeholder="johndoe"
-            autoComplete="username"
-            {...getFieldProps("username")}
-          />
-          {getFieldProps("username").error && (
-            <div className="form-error">{getFieldProps("username").error}</div>
-          )}
-        </div>
+      <h1 className="text-4xl font-bold tracking-tighter">Signup</h1>
 
-        <div className="form-group">
-          <input
-            type="email"
-            name="email"
-            placeholder="johndoe@gmail.com"
-            autoComplete="email"
-            {...getFieldProps("email")}
-          />
-          {getFieldProps("email").error && (
-            <div className="form-error">{getFieldProps("email").error}</div>
-          )}
-        </div>
+      <form
+        className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8"
+        onSubmit={handleSubmit}
+      >
+        <FormField
+          type="text"
+          name="username"
+          label="Username"
+          placeholder="johndoe"
+          autoComplete="username"
+          fieldProps={getFieldProps("username")}
+        />
 
-        <div className="form-group">
-          <input
-            type="password"
-            name="password"
-            autoComplete="new-password"
-            placeholder="password"
-            {...getFieldProps("password")}
-          />
-          {getFieldProps("password").error && (
-            <div className="form-error">{getFieldProps("password").error}</div>
-          )}
-        </div>
+        <FormField
+          type="email"
+          name="email"
+          label="Email"
+          placeholder="johndoe@gmail.com"
+          autoComplete="email"
+          fieldProps={getFieldProps("email")}
+        />
 
-        <button type="submit">Signup</button>
+        <FormField
+          type="password"
+          name="password"
+          label="Password"
+          autoComplete="new-password"
+          placeholder="password"
+          fieldProps={getFieldProps("password")}
+        />
+
+        <button
+          type="submit"
+          className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+        >
+          Signup
+        </button>
       </form>
     </div>
   );

@@ -15,7 +15,7 @@ export default function useAuth() {
     setLoading(false);
   }, []);
 
-  const register = () => {};
+  const signup = () => {};
 
   const login = (email, password) => {
     console.log(email, password);
@@ -31,7 +31,7 @@ export default function useAuth() {
     isAuthenticated: !!user,
     loading,
 
-    register,
+    signup,
     login,
     logout,
   };
