@@ -27,11 +27,7 @@ export const useForm = (formSchema, initialData = {}) => {
   const validateForm = () => {
     const result = validator.validateForm(formData, formSchema);
 
-    const newErrors = Object.fromEntries(
-      Object.entries(result.results).map(([fieldName, fieldResult]) => {
-        fieldName, fieldResult.errors;
-      })
-    );
+    const newErrors = Object.fromEntries(Object.entries(result.results).map(([fieldName, fieldResult]) => [fieldName, fieldResult.errors]));
 
     setErrors(newErrors);
     return result;

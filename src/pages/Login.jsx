@@ -11,16 +11,24 @@ const loginSchema = {
 };
 
 export default function Login() {
-  const { formData, errors, getFieldProps } = useForm(loginSchema, {
-    email: "",
-    password: "",
-  });
+  // const { login } = useAuth();
+  const { formData, errors, getFieldProps, validateForm } = useForm(
+    loginSchema,
+    {
+      email: "",
+      password: "",
+    }
+  );
 
   console.log(formData, errors);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData, errors);
+
+    const { isValid } = validateForm();
+    console.log(isValid);
+
+    // login(formData);
   };
 
   return (

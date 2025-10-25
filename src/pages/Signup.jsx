@@ -2,29 +2,25 @@ import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation/validation-rules";
 
 const signupSchema = {
-  username: [
-    validationRules.required,
-    validationRules.min(3)
-  ],
-  email: [
-    validationRules.required,
-    validationRules.email
-  ],
-  password: [
-    validationRules.required,
-    validationRules.email
-  ]
-}
+  username: [validationRules.required, validationRules.minLength(3)],
+  email: [validationRules.required, validationRules.email],
+  password: [validationRules.required, validationRules.minLength(6)],
+};
 
 export default function Signup() {
-  const { formData, errors, getFieldProps } = useForm(signupSchema,{
-    username: "",
-    email: "",
-    password: "",
-  }); 
+  const { formData, errors, getFieldProps, validateForm } = useForm(
+    signupSchema,
+    {
+      username: "",
+      email: "",
+      password: "",
+    }
+  );
 
   const onSubmit = (e) => {
     e.preventDefault();
+    const { isValid } = validateForm();
+    console.log(isValid);
     console.log(formData, errors);
   };
 
