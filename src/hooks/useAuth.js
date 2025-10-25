@@ -17,17 +17,17 @@ export function useAuth() {
   }, []);
 
   const signup = async (userCredentials) => {
-   return await AuthService.signup(userCredentials)
+    return await AuthService.signup(userCredentials);
   };
 
   const login = async (userCredentials) => {
-    return await AuthService.login(userCredentials)
+    return await AuthService.login(userCredentials);
   };
 
   const logout = () => {
     AuthService.logout();
     setUser(null);
-    setError("")
+    setError("");
   };
 
   return {

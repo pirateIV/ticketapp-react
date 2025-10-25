@@ -3,10 +3,10 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import { AuthService } from "./services/auth";
+import { useAuth } from "./context/auth";
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = AuthService.isAuthenticated();
+  const { isAuthenticated } = useAuth();
   return isAuthenticated ? children : <Navigate to="/auth/login" />;
 };
 

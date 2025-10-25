@@ -62,6 +62,10 @@ export class AuthService {
       }
     }
 
+    const token = this.generateToken({ email: user.email, id: user.id });
+    localStorage.setItem(this.sessionKey, token);
+    // console.log(token, this.verifyToken(token))
+
     return { user, success: true }
   }
 
@@ -94,7 +98,7 @@ export class AuthService {
   }
 
   static isAuthenticated() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem(this.sessionKey);
     return token && this.verifyToken(token);
   }
 
@@ -107,5 +111,4 @@ export class AuthService {
     const ticketAppUsers = localStorage.getItem(this.usersKey);
     return ticketAppUsers ? JSON.parse(ticketAppUsers) : [];
   }
-
 }

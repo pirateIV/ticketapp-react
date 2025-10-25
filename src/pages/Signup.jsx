@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
+import { FormField } from "@/components/FormField";
 import { useAuth } from "@/hooks/useAuth";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
-import { FormField } from "@/components/FormField";
 
 // prettier-ignore
 const signupSchema = {

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { FormField } from "@/components/FormField";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/auth";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
 
@@ -22,8 +22,8 @@ const loginSchema = {
 export default function Login() {
   const navigate = useNavigate();
 
-  const { login } = useAuth();
-  const { formData, errors, getFieldProps, validateForm } = useForm(
+  const { login, setUser } = useAuth();
+  const { formData, getFieldProps, validateForm } = useForm(
     loginSchema,
     {
       email: "",
@@ -31,20 +31,17 @@ export default function Login() {
     }
   );
 
-  console.log(formData, errors);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validation = validateForm();
+    
     if (validation.isValid) {
       const { success, user, message } = await login(formData);
 
-      console.log(success, user, message);
-
       if (success) {
-        console.log(user);
-        navigate("/");
+        setUser(user);
+        navigate("/dashboard");
       } else {
         console.log(message);
       }
