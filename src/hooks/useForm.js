@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from "react";
-import { Validator } from "@/utils/validation/validator";
+import { Validator } from "@/utils/validator";
 
 export const useForm = (formSchema, initialData = {}) => {
   const [formData, setFormData] = useState(initialData);

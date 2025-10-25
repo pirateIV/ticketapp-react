@@ -1,6 +1,6 @@
 import { FormField } from "@/components/FormField";
 import { useForm } from "@/hooks/useForm";
-import { validationRules } from "@/utils/validation/validation-rules";
+import { validationRules } from "@/utils/validation-rules";
 
 // prettier-ignore
 const loginSchema = {
@@ -60,14 +60,14 @@ export default function Login() {
           type="password"
           name="password"
           label="Password"
-          autoComplete="new-password"
+          autoComplete="current-password"
           placeholder="password"
           fieldProps={getFieldProps("password")}
         />
 
         <button
           type="submit"
-          className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
         >
           Login
         </button>

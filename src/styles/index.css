@@ -16,3 +16,7 @@ html {
 html, body {
   font-family: "InterVar", system-ui, -apple-system;
 }
+
+button {
+  cursor: pointer;
+}
