@@ -1,12 +1,17 @@
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation/validation-rules";
 
+// prettier-ignore
 const loginSchema = {
-  email: [validationRules.required, validationRules.email],
-  password: [
+  email: [
+    validationRules.email,
     validationRules.required,
-    validationRules.min(6),
-    validationRules.max(30),
+  ],
+  password: [
+    validationRules.password,
+    validationRules.required,
+    validationRules.minLength(6),
+    validationRules.maxLength(30),
   ],
 };
 
@@ -22,18 +27,20 @@ export default function Login() {
 
   console.log(formData, errors);
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { isValid } = validateForm();
-    console.log(isValid);
+    const validation = validateForm();
+    if (!validation.isValid) {
+      console.log(errors);
+    }
 
     // login(formData);
   };
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
             type="text"
@@ -42,7 +49,9 @@ export default function Login() {
             autoComplete="email"
             {...getFieldProps("email")}
           />
-          <div className="form-error"></div>
+          {getFieldProps("email").error && (
+            <div className="form-error">{getFieldProps("email").error}</div>
+          )}
         </div>
 
         <div className="form-group">
@@ -53,7 +62,9 @@ export default function Login() {
             placeholder="password"
             {...getFieldProps("password")}
           />
-          <div className="form-error"></div>
+          {getFieldProps("password").error && (
+            <div className="form-error">{getFieldProps("password").error}</div>
+          )}
         </div>
 
         <button type="submit">Login</button>

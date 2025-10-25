@@ -1,5 +1,5 @@
 export class Validator {
-  validateField(value, fieldRules, values = {}) {
+  validateField(fieldName, fieldRules, value, values = {}) { 
     const errors = [];
 
     for (const rule of fieldRules) {
@@ -21,7 +21,7 @@ export class Validator {
 
     for (const [fieldName, fieldRules] of Object.entries(formSchema)) {
       const value = formData[fieldName];
-      const fieldResult = this.validateField(value, fieldRules);
+      const fieldResult = this.validateField(fieldName, fieldRules, value, formData); 
 
       results[fieldName] = fieldResult;
 
