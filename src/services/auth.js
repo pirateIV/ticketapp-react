@@ -103,8 +103,7 @@ export class AuthService {
   }
 
   static logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem(this.sessionKey);
   }
 
   static getUsers() {

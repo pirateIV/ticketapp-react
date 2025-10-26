@@ -17,6 +17,15 @@ html, body {
   font-family: "InterVar", system-ui, -apple-system;
 }
 
+body {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-shrink: 0; */
+  height: 100svh;
+}
+
 button {
   cursor: pointer;
 }

@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
 import { FormField } from "@/components/FormField";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/context/auth";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
+import { Form } from "@/components/Form";
 
 // prettier-ignore
 const signupSchema = {
@@ -50,13 +51,10 @@ export default function Signup() {
   };
 
   return (
-    <div>
+    <div className="h-full mx-auto max-w-9/10 sm:max-w-4/5 lg:max-w-140">
       <h1 className="text-4xl font-bold tracking-tighter">Signup</h1>
 
-      <form
-        className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8"
-        onSubmit={handleSubmit}
-      >
+      <Form onSubmit={handleSubmit}>
         <FormField
           type="text"
           name="username"
@@ -84,13 +82,8 @@ export default function Signup() {
           fieldProps={getFieldProps("password")}
         />
 
-        <button
-          type="submit"
-          className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-        >
-          Signup
-        </button>
-      </form>
+        <FormSubmit>Signup</FormSubmit>
+      </Form>
     </div>
   );
 }

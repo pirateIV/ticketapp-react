@@ -10,12 +10,15 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userData = localStorage.getItem("user");
+    const token = localStorage.getItem(AuthService.sessionKey);
 
-    if (token && userData) {
-      setUser(JSON.parse(userData));
+    if(AuthService.verifyToken(token)) {
+      //...
     }
+
+    // if (token && userData) {
+    //   setUser(JSON.parse(userData));
+    // }
     setLoading(false);
   }, []);
 

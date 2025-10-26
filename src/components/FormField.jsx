@@ -22,7 +22,11 @@ export function FormField({ name, label, fieldProps, ...props }) {
         {...props}
       />
       {hasError && (
-        <div className="absolute -bottom-10px text-[13px] font-medium text-red-500" role="alert" aria-live="polite">
+        <div
+          className="absolute -bottom-10px text-[13px] font-medium text-red-500"
+          role="alert"
+          aria-live="polite"
+        >
           {errorMessage}
         </div>
       )}

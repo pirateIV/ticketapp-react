@@ -1,9 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import { useAuth } from "@/context/auth";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
-import { useAuth } from "./context/auth";
+import Dashboard from "@/pages/Dashboard";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -20,8 +21,7 @@ export default function App() {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            {/* <Dashboard /> */}
-            <>This is the Dashboard</>
+            <Dashboard />
           </ProtectedRoute>
         }
       />
