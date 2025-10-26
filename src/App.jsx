@@ -1,15 +1,11 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import { useAuth } from "@/context/auth";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import Dashboard from "@/pages/Dashboard";
-
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? children : <Navigate to="/auth/login" />;
-};
+import Tickets from "@/pages/Tickets";
+import { ProtectedRoute } from "@/routes/ProtectedRoute";
 
 export default function App() {
   return (
@@ -25,14 +21,14 @@ export default function App() {
           </ProtectedRoute>
         }
       />
-      {/*<Route
-				path="/tickets"
-				element={
-					<Protected>
-						<Tickets />
-					</Protected>
-				}
-			/> */}
+      <Route
+        path="/tickets"
+        element={
+          <ProtectedRoute>
+            <Tickets />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
