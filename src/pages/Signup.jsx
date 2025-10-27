@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/context/auth";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
-import { Form, FormField, FormSubmit } from "@/components/Form";
+import { Form, FormField, FormSubmit, FormWrapper } from "@/components/Form";
+import WavyLine from "@/components/WavyLine";
+import { FormLink } from "@/components/Form/FormLink";
 
 // prettier-ignore
 const signupSchema = {
@@ -25,7 +26,6 @@ const signupSchema = {
 
 export default function Signup() {
   const navigate = useNavigate();
-
   const { signup } = useAuth();
   const { formData, getFieldProps, validateForm } = useForm(signupSchema, {
     username: "",
@@ -50,15 +50,13 @@ export default function Signup() {
   };
 
   return (
-    <div className="h-full mx-auto max-w-9/10 sm:max-w-4/5 lg:max-w-140">
-      <h1 className="text-4xl font-bold tracking-tighter">Signup</h1>
-
+    <FormWrapper pageType="signup">
       <Form onSubmit={handleSubmit}>
         <FormField
           type="text"
           name="username"
           label="Username"
-          placeholder="johndoe"
+          placeholder="Choose a username"
           autoComplete="username"
           fieldProps={getFieldProps("username")}
         />
@@ -66,8 +64,8 @@ export default function Signup() {
         <FormField
           type="email"
           name="email"
-          label="Email"
-          placeholder="johndoe@gmail.com"
+          label="Email address"
+          placeholder="Enter your email"
           autoComplete="email"
           fieldProps={getFieldProps("email")}
         />
@@ -76,13 +74,15 @@ export default function Signup() {
           type="password"
           name="password"
           label="Password"
+          placeholder="Create a strong password"
           autoComplete="new-password"
-          placeholder="password"
           fieldProps={getFieldProps("password")}
         />
 
-        <FormSubmit>Signup</FormSubmit>
+        <FormSubmit>Create your account</FormSubmit>
+
+        <FormLink type="login" />
       </Form>
-    </div>
+    </FormWrapper>
   );
 }

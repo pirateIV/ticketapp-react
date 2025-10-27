@@ -15,7 +15,17 @@ export const useTickets = () => {
 const ticketInitialState = {
   // open: false,
   // resolved: false,
-  status: "open", // open, resolved
+  title: "",
+  description: "",
+  status: "in_progress", // open, in_progress, closed
+
+// Color & Status Rules:
+// open → Green tone
+// in_progress → Amber tone
+// closed → Gray tone
+
+  priority: "low", // low, medium, high,
+  createdAt: new Date().toISOString(),
 };
 
 const initialState = {

@@ -1,13 +1,13 @@
+import Footer from "@/components/Footer";
+import Hero from "@/components/Landing/Hero";
 import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Landing() {
   return (
     <div>
-      <h1>Landing Page</h1>
-
-      <Link to="/auth/login">Login</Link>
-      <Link to="/auth/signup">Signup</Link>
+     <Hero/>
+     <Footer/>
     </div>
   );
 }

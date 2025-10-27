@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/auth";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
-import { Form, FormField, FormSubmit } from "@/components/Form";
+import {
+  Form,
+  FormField,
+  FormLink,
+  FormSubmit,
+  FormWrapper,
+} from "@/components/Form";
 
 // prettier-ignore
 const loginSchema = {
@@ -46,32 +52,30 @@ export default function Login() {
   };
 
   return (
-    <div className="max-h-svh mx-auto max-w-9/10 flex flex-col sm:max-w-4/5 lg:max-w-140">
-      <div className="flex flex-col">
-        <h1 className="text-4xl font-bold tracking-tighter">Login</h1>
+    <FormWrapper pageType="login">
+      <Form onSubmit={handleSubmit}>
+        <FormField
+          type="email"
+          name="email"
+          label="Email"
+          placeholder="johndoe@gmail.com"
+          autoComplete="email"
+          fieldProps={getFieldProps("email")}
+        />
 
-        <Form onSubmit={handleSubmit}>
-          <FormField
-            type="email"
-            name="email"
-            label="Email"
-            placeholder="johndoe@gmail.com"
-            autoComplete="email"
-            fieldProps={getFieldProps("email")}
-          />
+        <FormField
+          type="password"
+          name="password"
+          label="Password"
+          autoComplete="current-password"
+          placeholder="password"
+          fieldProps={getFieldProps("password")}
+        />
 
-          <FormField
-            type="password"
-            name="password"
-            label="Password"
-            autoComplete="current-password"
-            placeholder="password"
-            fieldProps={getFieldProps("password")}
-          />
+        <FormSubmit>Login</FormSubmit>
 
-          <FormSubmit>Login</FormSubmit>
-        </Form>
-      </div>
-    </div>
+        <FormLink type="signup" />
+      </Form>
+    </FormWrapper>
   );
 }
