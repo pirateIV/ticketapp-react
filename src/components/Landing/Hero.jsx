@@ -14,18 +14,18 @@ const Hero = () => {
       <div className="absolute w-60 h-60 bottom-40 -left-24 bg-white/10 rounded-full"></div>
       <div className="absolute w-40 h-40 top-1/4 left-1/4 bg-white/5 rounded-full"></div>
 
-      <div className="app-container mx-auto px-4 sm:px-6 lg:px-8 pt-20 relative z-10">
+      <div className="app-container mx-auto px-4 sm:px-6 lg:px-8 pt-20 relative z-10 mt-16 lg:mt-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
           <div className="text-white">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-tight mb-4">
               Streamline Your Support with{" "}
               <span className="bg-gradient-to-r from-pink-400 to-orange-400 bg-clip-text text-transparent">
                 TicketFlow
               </span>
             </h1>
 
-            <p className="text-xl sm:text-2xl text-blue-100 leading-relaxed mb-8">
+            <p className="text-lg sm:text-xl text-blue-100 leading-relaxed mb-6">
               The ultimate ticket management solution for teams of all sizes.
               Track, prioritize, and resolve issues faster than ever before.
             </p>
