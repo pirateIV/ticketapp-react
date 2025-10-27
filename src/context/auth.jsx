@@ -6,13 +6,13 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem(AuthService.sessionKey);
 
-    if(AuthService.verifyToken(token)) {
+    if (AuthService.verifyToken(token)) {
       //...
     }
 
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     AuthService.logout();
-    setUser(null);
+    window.location.href = "/";
     setError("");
   };
 
@@ -56,11 +56,10 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if(context=== undefined) {
-    throw new Error("useAuth must be used within an AuthProvider")
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
-}
+};

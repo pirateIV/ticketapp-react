@@ -1,7 +1,5 @@
+import { createContext, useContext, useEffect, useState } from "react";
 import { TicketService } from "@/services/tickets";
-import { useEffect } from "react";
-import { useState } from "react";
-import { createContext, useContext } from "react";
 
 const TicketContext = createContext();
 
@@ -34,42 +32,82 @@ const initialState = {
 };
 
 export const TicketProvider = ({ children }) => {
-  const [ticketState, setTicketState] = useState(
-    TicketService.getTickets() || []
-  );
+  const [tickets, setTickets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTicketState(TicketService.getTickets() || []);
-    setIsLoading(false);
+    loadTickets();
   }, []);
 
-  // Get the total number of tickets
-  const ticketsCount = ticketState.length;
+  const loadTickets = () => {
+    const savedTickets = TicketService.getTickets();
+    setTickets(savedTickets);
+    setIsLoading(false);
+  };
 
-  function addTicket(ticket) {
-    TicketService.addTicket(ticket);
-  }
+  const addTicket = (ticket) => {
+    const newTicket = {
+      ...ticket,
+      id: `TKT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
 
-  function editTicket(ticketId, updatedTicket) {
-    TicketService.editTicket(ticketId, updatedTicket);
-  }
+    TicketService.addTicket(newTicket);
+    setTickets((prev) => [...prev, newTicket]);
 
-  function deleteTicket(ticketId) {
+    return {
+      success: true,
+      ticket: newTicket,
+      message: "Ticket created successfully",
+    };
+  };
+
+  const editTicket = (ticketId, updatedTicket) => {
+    const ticketToUpdate = {
+      ...updatedTicket,
+      updatedAt: new Date().toISOString(),
+    };
+
+    TicketService.editTicket(ticketId, ticketToUpdate);
+    setTickets((prev) =>
+      prev.map((ticket) =>
+        ticket.id === ticketId ? { ...ticket, ...ticketToUpdate } : ticket
+      )
+    );
+
+    return {
+      success: true,
+      ticket: ticketToUpdate,
+      message: "Ticket updated successfully",
+    };
+  };
+
+  const deleteTicket = (ticketId) => {
     TicketService.deleteTicket(ticketId);
-  }
+    setTickets((prev) => prev.filter((ticket) => ticket.id !== ticketId));
+
+    return {
+      success: true,
+      message: "Ticket deleted successfully",
+    };
+  };
+
+  const getTicketById = (ticketId) => {
+    return tickets.find((ticket) => ticket.id === ticketId);
+  };
 
   return (
     <TicketContext.Provider
       value={{
-        tickets: ticketState,
-        ticketsCount,
+        tickets,
         isLoading,
 
         addTicket,
         editTicket,
         deleteTicket,
-        setTicketState,
+        getTicketById,
+        loadTickets,
       }}
     >
       {children}

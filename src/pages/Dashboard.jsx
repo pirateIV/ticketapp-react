@@ -8,7 +8,7 @@ export default function Dashboard() {
   const { logout } = useAuth();
 
   return (
-    <div>
+    <div className="flex-1 pt-16">
       <h1 className="text-6xl font-semibold tracking-tighter">Dashboard</h1>
       <p>Do my ticketing here... 😊</p>
 

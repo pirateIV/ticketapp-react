@@ -8,7 +8,7 @@ const Hero = () => {
   const { isAuthenticated, logout } = useAuth();
 
   return (
-    <section className="relative  z-1 flex-1 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 overflow-hidden">
+    <section className="relative  z-1 flex-1 bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 overflow-hidden">
       {/* Decorative Circles */}
       <div className="absolute w-80 h-80 -top-40 -right-40 bg-white/10 rounded-full"></div>
       <div className="absolute w-60 h-60 bottom-40 -left-24 bg-white/10 rounded-full"></div>
