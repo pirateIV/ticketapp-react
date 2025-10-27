@@ -2,16 +2,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import WavyLine from "../WavyLine";
+import { useAuth } from "@/context/auth";
 
 const Hero = () => {
+  const { isAuthenticated, logout } = useAuth();
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 overflow-hidden">
+    <section className="relative  z-1 flex-1 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 overflow-hidden">
       {/* Decorative Circles */}
       <div className="absolute w-80 h-80 -top-40 -right-40 bg-white/10 rounded-full"></div>
       <div className="absolute w-60 h-60 bottom-40 -left-24 bg-white/10 rounded-full"></div>
       <div className="absolute w-40 h-40 top-1/4 left-1/4 bg-white/5 rounded-full"></div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+      <div className="app-container mx-auto px-4 sm:px-6 lg:px-8 pt-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Hero Content */}
           <div className="text-white">
@@ -28,18 +31,29 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Link
-                to="/auth/login"
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-blue-600 bg-white rounded-xl hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
-              >
-                Login to Dashboard
-              </Link>
-              <Link
-                to="/auth/signup"
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white border-2 border-white rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:-translate-y-1"
-              >
-                Get Started Free
-              </Link>
+              {!isAuthenticated ? (
+                <>
+                  <Link
+                    to="/auth/login"
+                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-blue-600 bg-white rounded-xl hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                  >
+                    Login to Dashboard
+                  </Link>
+                  <Link
+                    to="/auth/signup"
+                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white border-2 border-white rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    Get Started Free
+                  </Link>
+                </>
+              ) : (
+                <Link
+                  to="/dashboard"
+                  className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-blue-600 bg-white rounded-xl hover:bg-gray-50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                >
+                  Go to Dashboard
+                </Link>
+              )}
             </div>
           </div>
 

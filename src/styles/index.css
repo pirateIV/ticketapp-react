@@ -29,3 +29,9 @@ body {
 button {
   cursor: pointer;
 }
+
+
+.app-container {
+  max-width: 90rem; /* 1440px */
+  margin-inline: auto;
+}

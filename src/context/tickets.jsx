@@ -1,4 +1,5 @@
 import { TicketService } from "@/services/tickets";
+import { useEffect } from "react";
 import { useState } from "react";
 import { createContext, useContext } from "react";
 
@@ -19,10 +20,10 @@ const ticketInitialState = {
   description: "",
   status: "in_progress", // open, in_progress, closed
 
-// Color & Status Rules:
-// open → Green tone
-// in_progress → Amber tone
-// closed → Gray tone
+  // Color & Status Rules:
+  // open → Green tone
+  // in_progress → Amber tone
+  // closed → Gray tone
 
   priority: "low", // low, medium, high,
   createdAt: new Date().toISOString(),
@@ -32,13 +33,19 @@ const initialState = {
   tickets: [],
 };
 
-export const TicketProvider = () => {
+export const TicketProvider = ({ children }) => {
   const [ticketState, setTicketState] = useState(
-    TicketService.getTickets() || initialState
+    TicketService.getTickets() || []
   );
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTicketState(TicketService.getTickets() || []);
+    setIsLoading(false);
+  }, []);
 
   // Get the total number of tickets
-  const ticketsCount = ticketState.tickets.length;
+  const ticketsCount = ticketState.length;
 
   function addTicket(ticket) {
     TicketService.addTicket(ticket);
@@ -55,14 +62,17 @@ export const TicketProvider = () => {
   return (
     <TicketContext.Provider
       value={{
-        ticketState,
+        tickets: ticketState,
         ticketsCount,
+        isLoading,
 
         addTicket,
         editTicket,
         deleteTicket,
         setTicketState,
       }}
-    ></TicketContext.Provider>
+    >
+      {children}
+    </TicketContext.Provider>
   );
 };
