@@ -1,14 +1,14 @@
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { AuthProvider } from "./context/auth";
+import { SessionProvider } from "./context/session";
 import { TicketProvider } from "./context/tickets";
 
 export const AppProviders = ({ children }) => {
   return (
-    <AuthProvider>
+    <SessionProvider>
       <TicketProvider>
         <Router>{children}</Router>
       </TicketProvider>
-    </AuthProvider>
+    </SessionProvider>
   );
 };

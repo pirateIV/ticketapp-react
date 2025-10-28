@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { TicketService } from "@/services/tickets";
+import { useSession } from "./session";
 
 const TicketContext = createContext();
 
@@ -32,8 +33,10 @@ const initialState = {
 };
 
 export const TicketProvider = ({ children }) => {
+  const { user } = useSession();
   const [tickets, setTickets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
     loadTickets();
@@ -49,8 +52,8 @@ export const TicketProvider = ({ children }) => {
     const newTicket = {
       ...ticket,
       id: `TKT-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      user: user.id,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
     };
 
     TicketService.addTicket(newTicket);

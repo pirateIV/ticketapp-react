@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "@/context/auth";
+import { useSession } from "@/context/session";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
 import { Form, FormField, FormSubmit, FormWrapper } from "@/components/Form";
@@ -26,7 +26,7 @@ const signupSchema = {
 
 export default function Signup() {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signup } = useSession();
   const { formData, getFieldProps, validateForm } = useForm(signupSchema, {
     username: "",
     email: "",

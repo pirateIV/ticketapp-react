@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "@/context/auth";
+import { useSession } from "@/context/session";
 import Logo from "./Logo";
 
 export default function Nav() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout } = useSession();
   return (
     <header className="px-6 w-full z-50 fixed top-0 left-0">
       <nav className="flex items-center justify-between max-w-4xl mx-auto ps-5 pe-2 py-1.5 border border-gray-400 bg-white outline-4 outline-white/40 rounded-lg mt-3 w-full z-5">

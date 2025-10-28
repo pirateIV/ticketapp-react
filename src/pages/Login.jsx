@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "@/context/auth";
+import { useSession } from "@/context/session";
 import { useForm } from "@/hooks/useForm";
 import { validationRules } from "@/utils/validation-rules";
 import {
@@ -28,7 +28,7 @@ const loginSchema = {
 export default function Login() {
   const navigate = useNavigate();
 
-  const { login, setUser } = useAuth();
+  const { login, setUser } = useSession();
   const { formData, getFieldProps, validateForm } = useForm(loginSchema, {
     email: "",
     password: "",

@@ -2,10 +2,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import WavyLine from "../WavyLine";
-import { useAuth } from "@/context/auth";
+import { useSession } from "@/context/session";
 
 const Hero = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout } = useSession();
 
   return (
     <section className="relative  z-1 flex-1 bg-gradient-to-br from-blue-900 via-purple-900 to-blue-900 overflow-hidden">

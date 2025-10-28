@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "@/context/auth";
+import { useSession } from "@/context/session";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout } = useSession();
 
   return (
     <div className="flex-1 pt-16">

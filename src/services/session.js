@@ -1,6 +1,6 @@
 import { generateId, hashPassword } from "@/utils/auth";
 
-export class AuthService {
+export class SessionService {
   static sessionKey = "ticketapp_session";
   static usersKey = "ticketapp_users"
 
